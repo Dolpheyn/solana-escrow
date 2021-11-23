@@ -3,13 +3,13 @@ use solana_program::{
     entrypoint::ProgramResult,
     msg,
     program_error::ProgramError,
+    program_pack::{IsInitialized, Pack},
     pubkey::Pubkey,
     rent::Rent,
     sysvar::Sysvar,
-    program_pack::{Pack, IsInitialized},
 };
 
-use crate::{state::Escrow, error::EscrowError, instruction::EscrowInstruction};
+use crate::{error::EscrowError, instruction::EscrowInstruction, state::Escrow};
 
 pub struct Processor;
 
