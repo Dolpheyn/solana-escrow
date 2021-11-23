@@ -32,8 +32,8 @@ impl Processor {
 
     pub fn process_init_escrow(
         accounts: &[AccountInfo],
-        amount: u64,
-        program_id: &Pubkey,
+        _amount: u64,
+        _program_id: &Pubkey,
     ) -> ProgramResult {
         // Get the first account, which should be the signer.
         let account_info_iter = &mut accounts.iter();
@@ -43,7 +43,7 @@ impl Processor {
             return Err(ProgramError::MissingRequiredSignature);
         }
 
-        let temp_token_account = next_account_info(account_info_iter)?;
+        let _temp_token_account = next_account_info(account_info_iter)?;
         let token_receiver_account = next_account_info(account_info_iter)?;
 
         // Check: the token receiver account should be owned by the token program.
@@ -59,7 +59,7 @@ impl Processor {
             return Err(EscrowError::NotRentExempt.into());
         }
 
-        let mut escrow_info = Escrow::unpack_unchecked(&escrow_account.try_borrow_data()?)?;
+        let escrow_info = Escrow::unpack_unchecked(&escrow_account.try_borrow_data()?)?;
 
         // Check: Make sure the escrow has not been initialized before.
         if escrow_info.is_initialized() {
